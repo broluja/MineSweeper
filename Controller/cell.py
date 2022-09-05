@@ -9,6 +9,7 @@ from Controller.settings import CELL_COUNT, NUMBER_OF_MINES
 class Cell(object):
     _instances = []
     cell_count = CELL_COUNT
+    mine_count = NUMBER_OF_MINES
 
     def __init__(self, x, y, is_mine=False):
         self.x, self.y = x, y
@@ -65,10 +66,12 @@ class Cell(object):
             self.show_cell()
 
     def refresh_label(self, widget):
-        label = widget.parent.parent.parent.ids.cell_counter
-        label.text = f'Cells left: {self.cell_count}'
+        cell_label = widget.parent.parent.parent.ids.cell_counter
+        cell_label.text = f'Cells left: {self.cell_count}'
+        mine_label = widget.parent.parent.parent.ids.mine_counter
+        mine_label.text = f'Mines left: {self.mine_count}'
         if Cell.cell_count == NUMBER_OF_MINES:
-            print('You won!!')
+            print('You won!!')  # TODO: need to be implemented
 
     def get_cell_by_coordinates(self, x, y):
         for cell in self._instances:
@@ -81,6 +84,10 @@ class Cell(object):
             self.cell_object.text = str(self.neighbour_mines)
         self.is_open = True
         self.cell_object.disabled = True
+
+    def mark_mine(self):
+        Cell.mine_count -= 1
+        self.cell_object.text = '*'
 
     def game_over(self):  # TODO: need to be implemented
         return NotImplemented

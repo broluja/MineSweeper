@@ -31,6 +31,16 @@
             theme_text_color: 'Hint'
             font_size: dp(25)
             pos_hint: {'center_x': 0.1, 'y': .95}
+
+        MDLabel:
+            id: mine_counter
+            text: f'Mines left: {Cell.mine_count}'
+            halign: 'center'
+            font_style:'Body1'
+            theme_text_color: 'Hint'
+            font_size: dp(25)
+            pos_hint: {'center_x': 0.1, 'y': .75}
+
         MDFlatButton:
             text: 'Back'
             on_press:
