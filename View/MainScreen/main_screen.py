@@ -9,10 +9,12 @@ from Controller.cell import Cell
 
 class MainScreenView(MDScreen):
     """Main Game Screen"""
+    mine_flag = False
+
     def on_enter(self, *args):
         for x, y in itertools.product(range(GRID_SIZE), range(GRID_SIZE)):
-            c = Cell(x*10, y*10)
-            c.create_button((x*10, y*20))
+            c = Cell(x * 10, y * 10)
+            c.create_button((x * 10, y * 20))
             self.ids.main_layout.add_widget(c.cell_object)
         Cell.randomize_mines()
         self.ids.welcome.text = f"""
@@ -21,3 +23,6 @@ class MainScreenView(MDScreen):
 
     def on_leave(self, *args):
         self.ids.main_layout.clear_widgets(self.ids.main_layout.children)
+
+    def flag(self):
+        self.mine_flag = self.mine_flag == False

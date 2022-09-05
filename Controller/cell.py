@@ -56,7 +56,9 @@ class Cell(object):
         self.cell_object = btn
 
     def open_cell(self, widget):
-        if self.is_mine:
+        if widget.parent.parent.parent.mine_flag:
+            self.mark_mine(widget)
+        elif self.is_mine:
             widget.text = 'MINE'
             self.game_over()
         else:
@@ -85,9 +87,11 @@ class Cell(object):
         self.is_open = True
         self.cell_object.disabled = True
 
-    def mark_mine(self):
-        Cell.mine_count -= 1
-        self.cell_object.text = '*'
+    def mark_mine(self, widget):
+        if not self.cell_object.text:
+            Cell.mine_count -= 1
+            self.cell_object.text = '*'
+            widget.parent.parent.parent.mine_flag = False
 
     def game_over(self):  # TODO: need to be implemented
         return NotImplemented

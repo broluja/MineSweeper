@@ -1,45 +1,42 @@
 #: import GRID_SIZE Controller.settings.GRID_SIZE
 #: import Cell Controller.cell.Cell
 
+<MainScreenLabel@MDLabel>
+    halign: 'center'
+    font_style:'Body1'
+    theme_text_color: 'Hint'
+
 <MainScreenView>
     FloatLayout:
         pos: 0, -self.height // 2
-        MDLabel:
-            text:'Minesweeper Game'
-            halign: 'center'
-            font_style:'Body1'
-            font_size: dp(40)
-            pos_hint: {'center_x': .5, 'y': .95}
-        MDLabel:
+        MainScreenLabel:
             id: welcome
             markup: True
-            font_size: dp(30)
-            font_style:'Body1'
-            text: ''
+            font_size: dp(44)
             color: 1, 1, 1, 1
-            bold: True
-            pos_hint: {'center_x': .5, 'y': .85}
-            halign: 'center'
+            pos_hint: {'y': .9}
 
     FloatLayout:
         pos: 0, -self.height // 2 - 200
-        MDLabel:
+        MainScreenLabel:
             id: cell_counter
             text: f'Cells left: {Cell.cell_count}'
-            halign: 'center'
-            font_style:'Body1'
-            theme_text_color: 'Hint'
             font_size: dp(25)
             pos_hint: {'center_x': 0.1, 'y': .95}
 
-        MDLabel:
+        MainScreenLabel:
             id: mine_counter
             text: f'Mines left: {Cell.mine_count}'
-            halign: 'center'
-            font_style:'Body1'
-            theme_text_color: 'Hint'
             font_size: dp(25)
-            pos_hint: {'center_x': 0.1, 'y': .75}
+            pos_hint: {'center_x': 0.1, 'y': .9}
+
+        MDTextButton:
+            text: 'Mark Mine'
+            on_press: root.flag()
+            font_size: dp(30)
+            size_hunt: None, None
+            pos_hint: {'center_x': 0.1, 'y': 1}
+            theme_text_color: 'Hint'
 
         MDFlatButton:
             text: 'Back'
