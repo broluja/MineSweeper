@@ -1,0 +1,47 @@
+#: import GRID_SIZE Controller.settings.GRID_SIZE
+#: import Cell Controller.cell.Cell
+
+<MainScreenView>
+    FloatLayout:
+        pos: 0, -self.height // 2
+        MDLabel:
+            text:'Minesweeper Game'
+            halign: 'center'
+            font_style:'Body1'
+            font_size: dp(40)
+            pos_hint: {'center_x': .5, 'y': .95}
+        MDLabel:
+            id: welcome
+            markup: True
+            font_size: dp(30)
+            font_style:'Body1'
+            text: ''
+            color: 1, 1, 1, 1
+            bold: True
+            pos_hint: {'center_x': .5, 'y': .85}
+            halign: 'center'
+
+    FloatLayout:
+        pos: 0, -self.height // 2 - 200
+        MDLabel:
+            id: cell_counter
+            text: f'Cells left: {Cell.cell_count}'
+            halign: 'center'
+            font_style:'Body1'
+            theme_text_color: 'Hint'
+            font_size: dp(25)
+            pos_hint: {'center_x': 0.1, 'y': .95}
+        MDFlatButton:
+            text: 'Back'
+            on_press:
+                app.player = ''
+                app.manager_screen.switch_screen('login')
+            font_size: dp(30)
+
+    FloatLayout:
+        pos: 200, -self.height // 2 - 200
+        GridLayout:
+            pos: 350, -self.height // 2 + 200
+            id: main_layout
+            cols: GRID_SIZE
+            rows: GRID_SIZE

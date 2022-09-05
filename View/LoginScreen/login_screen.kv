@@ -1,0 +1,40 @@
+#: import os os
+#: import get_hex_from_color kivy.utils.get_hex_from_color
+#: set primary get_hex_from_color(app.theme_cls.primary_color)
+
+<LoginScreenView>
+    Image:
+        source: f'{os.environ["MINESWEEPER"]}/assets/images/kivy-logo.png'
+        size_hint: None, .2
+        width: self.height
+        pos_hint: {'center_x': .5, 'center_y': .8}
+
+    MDLabel:
+        markup: True
+        font_size: dp(50)
+        text: f'Minesweeper[color={primary}]Game[/color]'
+        pos_hint: {'center_y': .65}
+        halign: 'center'
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        size_hint_x: .6
+        pos_hint: {'center_x': .5, 'center_y': .4}
+        padding: dp(60)
+        spacing: dp(30)
+        adaptive_height: True
+
+        MDTextField:
+            id: name_field
+            hint_text: 'Enter your name'
+            font_size: dp(50)
+
+        MDRoundFlatIconButton:
+            icon: 'send'
+            text: ' Login '
+            theme_text_color: 'Custom'
+            line_color: 1, 1, 1, 1
+            icon_color: 1, 1, 1, 1
+            pos_hint: {'center_x': .5}
+            font_size: dp(40)
+            on_press: root.login(name_field.text)

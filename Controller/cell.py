@@ -1,0 +1,86 @@
+import random
+
+from kivymd.uix.button import MDFlatButton
+from kivy.metrics import dp
+
+from Controller.settings import CELL_COUNT, NUMBER_OF_MINES
+
+
+class Cell(object):
+    _instances = []
+    cell_count = CELL_COUNT
+
+    def __init__(self, x, y, is_mine=False):
+        self.x, self.y = x, y
+        self.is_mine = is_mine
+        self.is_open = False
+        self.cell_object = None
+        Cell._instances.append(self)
+
+    def __repr__(self):
+        return f'Cell({self.x}, {self.y})'
+
+    def __bool__(self):
+        return self.is_mine
+
+    @property
+    def neighbour_mines(self):
+        return sum(bool(cell) for cell in self.neighbour_cells)
+
+    @property
+    def neighbour_cells(self):
+        surrounded_cells = [
+            self.get_cell_by_coordinates(self.x - 10, self.y - 10),
+            self.get_cell_by_coordinates(self.x - 10, self.y),
+            self.get_cell_by_coordinates(self.x - 10, self.y + 10),
+            self.get_cell_by_coordinates(self.x, self.y - 10),
+            self.get_cell_by_coordinates(self.x, self.y + 10),
+            self.get_cell_by_coordinates(self.x + 10, self.y - 10),
+            self.get_cell_by_coordinates(self.x + 10, self.y),
+            self.get_cell_by_coordinates(self.x + 10, self.y + 10),
+        ]
+        return [cell for cell in surrounded_cells if cell is not None]
+
+    @staticmethod
+    def randomize_mines():
+        for cell in random.sample(Cell._instances, NUMBER_OF_MINES):
+            cell.is_mine = True
+
+    def create_button(self, position):
+        btn = MDFlatButton(pos=position,
+                           on_press=self.open_cell,
+                           on_release=self.refresh_label,
+                           line_color=(.5, .5, .5, .5),
+                           font_size=dp(16))
+        self.cell_object = btn
+
+    def open_cell(self, widget):
+        if self.is_mine:
+            widget.text = 'MINE'
+            self.game_over()
+        else:
+            if self.neighbour_mines == 0:
+                for cell in self.neighbour_cells:
+                    cell.show_cell()
+            self.show_cell()
+
+    def refresh_label(self, widget):
+        label = widget.parent.parent.parent.ids.cell_counter
+        label.text = f'Cells left: {self.cell_count}'
+        if Cell.cell_count == NUMBER_OF_MINES:
+            print('You won!!')
+
+    def get_cell_by_coordinates(self, x, y):
+        for cell in self._instances:
+            if cell.x == x and cell.y == y:
+                return cell
+
+    def show_cell(self):
+        if not self.is_open:
+            Cell.cell_count -= 1
+            self.cell_object.text = str(self.neighbour_mines)
+        self.is_open = True
+        self.cell_object.disabled = True
+
+    def game_over(self):  # TODO: need to be implemented
+        return NotImplemented
