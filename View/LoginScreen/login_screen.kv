@@ -28,6 +28,7 @@
             id: name_field
             hint_text: 'Enter your name'
             font_size: dp(50)
+            on_text_validate: root.login(name_field.text)
 
         MDRoundFlatIconButton:
             icon: 'send'

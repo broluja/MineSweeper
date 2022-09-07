@@ -1,13 +1,20 @@
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDRaisedButton
 
 
 class InfoManager(MDDialog):
     """Information delivering manager (Pop-Up messages)"""
     title = 'Info Manager'
-    type = 'simple'
+    type = 'custom'
 
     def __init__(self, **kwargs):
         super(InfoManager, self).__init__(**kwargs)
-        self.buttons = [MDRaisedButton(text='OK'), MDRaisedButton(text='Cancel')]
-   
+
+    def login_info(self):
+        self.text = 'Please, enter your name.'
+        self.open()
+
+    def game_over_info(self):
+        self.text = 'You stepped on mine. Game Over!'
+        self.open()
+
+# TODO Implement MDDialog on GameOver and on WinnGame situations
