@@ -17,4 +17,6 @@ class InfoManager(MDDialog):
         self.text = 'You stepped on mine. Game Over!'
         self.open()
 
-# TODO Implement MDDialog on GameOver and on WinnGame situations
+    def win_info(self):
+        self.text = 'You won the game. Congratulations!'
+        self.open()

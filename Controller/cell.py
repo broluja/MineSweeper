@@ -76,7 +76,7 @@ class Cell(object):
         mine_label = widget.parent.parent.parent.ids.mine_counter
         mine_label.text = f'Mines left: {self.mine_count}'
         if Cell.cell_count == NUMBER_OF_MINES:
-            print('You won!!')  # TODO: need to be implemented, WinnGame situation
+            self.info_manager.win_info()
 
     def get_cell(self, x, y):
         for cell in self._instances:
