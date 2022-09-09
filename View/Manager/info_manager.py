@@ -16,7 +16,9 @@ class InfoManager(MDDialog):
     def game_over_info(self):
         self.text = 'You stepped on mine. Game Over!'
         self.open()
+        # TODO: Need to be optimized
 
     def win_info(self):
         self.text = 'You won the game. Congratulations!'
         self.open()
+        # TODO: Need to be optimized

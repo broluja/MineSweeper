@@ -82,6 +82,7 @@ class Cell(object):
             self.info_manager.win_info()
             with user_manager as manager:
                 manager.record_win(main_screen.manager.app.player)
+            # TODO: Need to be optimized
 
     def get_cell(self, x, y):
         for cell in self._instances:
@@ -105,4 +106,4 @@ class Cell(object):
         self.info_manager.game_over_info()
         with user_manager as manager:
             manager.record_loss(app.player)
-
+            # TODO: Need to be optimized
