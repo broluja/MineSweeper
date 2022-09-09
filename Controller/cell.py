@@ -60,11 +60,12 @@ class Cell(object):
         self.cell_object = btn
 
     def open_cell(self, widget):
-        if widget.parent.parent.parent.mine_flag:
+        main_screen = widget.parent.parent.parent
+        if main_screen.mine_flag:
             self.mark_mine(widget)
         elif self.is_mine:
             widget.text = 'MINE'
-            self.game_over()
+            self.game_over(main_screen.manager.app)
         else:
             if self.neighbour_mines == 0:
                 for cell in self.neighbour_cells:
@@ -98,6 +99,8 @@ class Cell(object):
             self.cell_object.text = '*'
             widget.parent.parent.parent.mine_flag = False
 
-    def game_over(self):
+    def game_over(self, app):
         self.info_manager.game_over_info()
-        user_manager.record_loss()
+        with user_manager as manager:
+            manager.record_loss(app.player)
+
