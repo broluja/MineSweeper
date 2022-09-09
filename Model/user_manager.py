@@ -41,8 +41,8 @@ class UserManager(object):
         self.cursor = self.conn.cursor()
 
     def get_or_create_player(self, name):
-        if player := self.conn.execute('SELECT * FROM players where player=?;', (name,)).fetchall():
-            player = Player(player_name=player[0][0], games_played=player[0][1], games_won=player[0][2])
+        if player := self.conn.execute('SELECT * FROM players where player=?;', (name,)).fetchone():
+            player = Player(player_name=player[0], games_played=player[1], games_won=player[2])
             return player.player_name
         player = name
         games_played, games_won = 0, 0
@@ -54,11 +54,6 @@ class UserManager(object):
 
     def record_loss(self):
         pass
-
-    # def check_email_usage(self, email: str):
-    #     sql_command = 'SELECT * FROM players WHERE email=?;'
-    #     self.cursor.execute(sql_command, (email,))
-    #     return self.cursor.fetchone()
 
     # def register_user(self, user_id: str, email: str, password: str):
     #     sql_command = 'INSERT INTO users VALUES(?, ?, ?);'
