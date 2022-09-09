@@ -5,6 +5,7 @@ from kivy.metrics import dp
 
 from Controller.settings import CELL_COUNT, NUMBER_OF_MINES
 from View.Manager.info_manager import InfoManager
+from Model.user_manager import user_manager
 
 
 info_manager = InfoManager()
@@ -77,6 +78,7 @@ class Cell(object):
         mine_label.text = f'Mines left: {self.mine_count}'
         if Cell.cell_count == NUMBER_OF_MINES:
             self.info_manager.win_info()
+            user_manager.record_win()
 
     def get_cell(self, x, y):
         for cell in self._instances:
@@ -98,3 +100,4 @@ class Cell(object):
 
     def game_over(self):
         self.info_manager.game_over_info()
+        user_manager.record_loss()
