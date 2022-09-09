@@ -54,8 +54,15 @@ class UserManager(object):
         self.conn.execute('INSERT INTO players VALUES(?, ?, ?);', (player, games_played, games_won))
         return player
 
-    def record_win(self):  # TODO: record a game win and update the database
-        pass
+    def record_win(self, name):
+        player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()
+        player = self.get_model(player)
+        games_played, games_won = player.games_played, player.games_won
+        games_played += 1
+        games_won += 1
+        sql_command = 'UPDATE players SET games_played=?, games_won=? WHERE player=?;'
+        self.conn.execute(sql_command, (games_played, games_won, name))
+        return player
 
     def record_loss(self, name):
         player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()

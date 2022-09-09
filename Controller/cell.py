@@ -73,13 +73,15 @@ class Cell(object):
             self.show_cell()
 
     def refresh_label(self, widget):
-        cell_label = widget.parent.parent.parent.ids.cell_counter
+        main_screen = widget.parent.parent.parent
+        cell_label = main_screen.ids.cell_counter
         cell_label.text = f'Cells left: {self.cell_count}'
         mine_label = widget.parent.parent.parent.ids.mine_counter
         mine_label.text = f'Mines left: {self.mine_count}'
         if Cell.cell_count == NUMBER_OF_MINES:
             self.info_manager.win_info()
-            user_manager.record_win()
+            with user_manager as manager:
+                manager.record_win(main_screen.manager.app.player)
 
     def get_cell(self, x, y):
         for cell in self._instances:
