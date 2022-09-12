@@ -8,11 +8,11 @@ class LoginScreenView(MDScreen):
     """Login Screen"""
     def __init__(self, **kwargs):
         super(LoginScreenView, self).__init__(**kwargs)
-        self.info_manager = InfoManager()
 
     def login(self, name):
         if not name:
-            self.info_manager.login_info()
+            info_manager = InfoManager()
+            info_manager.login_info()
         else:
             with user_manager as manager:
                 player = manager.get_or_create_player(name)

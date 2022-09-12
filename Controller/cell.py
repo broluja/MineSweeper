@@ -8,11 +8,8 @@ from View.Manager.info_manager import InfoManager
 from Model.user_manager import user_manager
 
 
-info_manager = InfoManager()
-
-
 class Cell(object):
-    """Base cell object containing mine, if decided by random function."""
+    """Cell class for creating base cell object containing mine, if decided by random function."""
     _instances = []
     cell_count = CELL_COUNT
     mine_count = NUMBER_OF_MINES
@@ -23,7 +20,6 @@ class Cell(object):
         self.is_open = False
         self.cell_object = None
         Cell._instances.append(self)
-        self.info_manager = info_manager
 
     def __repr__(self):
         return f'Cell({self.x}, {self.y})'
@@ -54,6 +50,15 @@ class Cell(object):
         for cell in random.sample(Cell._instances, NUMBER_OF_MINES):
             cell.is_mine = True
 
+    @classmethod
+    def shuffle_mines(cls):
+        for instance in cls._instances:
+            instance.is_mine = False
+            instance.is_open = False
+            instance.cell_object.text = ''
+            instance.cell_object.disabled = False
+        cls.randomize_mines()
+
     def create_button(self, position):
         btn = MDFlatButton(pos=position, on_press=self.open_cell,
                            on_release=self.refresh_label, line_color=(.5, .5, .5, .5), font_size=dp(16))
@@ -76,13 +81,12 @@ class Cell(object):
         main_screen = widget.parent.parent.parent
         cell_label = main_screen.ids.cell_counter
         cell_label.text = f'Cells left: {self.cell_count}'
-        mine_label = widget.parent.parent.parent.ids.mine_counter
+        mine_label = main_screen.ids.mine_counter
         mine_label.text = f'Mines left: {self.mine_count}'
         if Cell.cell_count == NUMBER_OF_MINES:
-            self.info_manager.win_info()
+            InfoManager().win_info()
             with user_manager as manager:
                 manager.record_win(main_screen.manager.app.player)
-            # TODO: Need to be optimized
 
     def get_cell(self, x, y):
         for cell in self._instances:
@@ -103,7 +107,7 @@ class Cell(object):
             widget.parent.parent.parent.mine_flag = False
 
     def game_over(self, app):
-        self.info_manager.game_over_info()
+        info_manager = InfoManager()
+        info_manager.game_over_info()
         with user_manager as manager:
             manager.record_loss(app.player)
-            # TODO: Need to be optimized
