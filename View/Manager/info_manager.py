@@ -8,8 +8,8 @@ class InfoManager(MDDialog):
     """Information delivering manager (Pop-Up messages)"""
     title = 'Info Manager'
     type = 'custom'
-    _scroll_height = NumericProperty("90dp")
-    _spacer_top = NumericProperty("40dp")
+    _scroll_height = NumericProperty("120dp")
+    _spacer_top = NumericProperty("50dp")
 
     def __init__(self, **kwargs):
         super(InfoManager, self).__init__(**kwargs)

@@ -61,11 +61,12 @@ class Cell(object):
         for cell in random.sample(cls._instances, NUMBER_OF_MINES):
             cell.is_mine = True
 
-    @staticmethod
-    def game_over(app):
+    def game_over(self, app):
         InfoManager().game_over_info()
         with user_manager as manager:
             manager.record_loss(app.player)
+        for cell in self._instances:
+            cell.cell_object.disabled = True
 
     def create_button(self, position):
         btn = MDFlatButton(pos=position, on_press=self.open_cell,
