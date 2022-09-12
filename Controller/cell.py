@@ -45,19 +45,27 @@ class Cell(object):
         ]
         return [cell for cell in surrounded_cells if cell is not None]
 
-    @staticmethod
-    def randomize_mines():
-        for cell in random.sample(Cell._instances, NUMBER_OF_MINES):
-            cell.is_mine = True
-
     @classmethod
     def shuffle_mines(cls):
+        """Called before start of new game to shuffle mines on table."""
         for instance in cls._instances:
             instance.is_mine = False
             instance.is_open = False
             instance.cell_object.text = ''
             instance.cell_object.disabled = False
         cls.randomize_mines()
+
+    @classmethod
+    def randomize_mines(cls):
+        """Called to randomly select cells with mines."""
+        for cell in random.sample(cls._instances, NUMBER_OF_MINES):
+            cell.is_mine = True
+
+    @staticmethod
+    def game_over(app):
+        InfoManager().game_over_info()
+        with user_manager as manager:
+            manager.record_loss(app.player)
 
     def create_button(self, position):
         btn = MDFlatButton(pos=position, on_press=self.open_cell,
@@ -105,9 +113,3 @@ class Cell(object):
             Cell.mine_count -= 1
             self.cell_object.text = '*'
             widget.parent.parent.parent.mine_flag = False
-
-    def game_over(self, app):
-        info_manager = InfoManager()
-        info_manager.game_over_info()
-        with user_manager as manager:
-            manager.record_loss(app.player)

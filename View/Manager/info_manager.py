@@ -14,17 +14,9 @@ class InfoManager(MDDialog):
     def __init__(self, **kwargs):
         super(InfoManager, self).__init__(**kwargs)
         self.buttons = [
-            MDFlatButton(text='New Game',
-                         font_size='25dp',
-                         on_press=self.new_game),
-            MDFlatButton(text='Exit',
-                         on_press=self.exit,
-                         font_size='25dp'
-                         )
+            MDFlatButton(text='New Game', font_size='25dp', on_press=self.new_game),
+            MDFlatButton(text='Exit', on_press=self.exit, font_size='25dp')
         ]
-
-    def on_dismiss(self):
-        self.clear_widgets(self.children)
 
     def login_info(self):
         self.create_buttons()
