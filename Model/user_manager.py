@@ -54,6 +54,10 @@ class UserManager(object):
         self.conn.execute('INSERT INTO players VALUES(?, ?, ?);', (player, games_played, games_won))
         return player
 
+    def get_records(self):
+        self.cursor.execute('SELECT * FROM players')
+        return self.cursor.fetchall()
+
     def record_win(self, name):
         player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()
         player = self.get_model(player)

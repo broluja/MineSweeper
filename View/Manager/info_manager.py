@@ -19,7 +19,6 @@ class InfoManager(MDDialog):
         ]
 
     def login_info(self):
-        self.create_buttons()
         self.text = 'Please, enter your name.'
         self.open()
 

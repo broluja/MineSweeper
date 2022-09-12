@@ -54,6 +54,8 @@ class Cell(object):
             instance.cell_object.text = ''
             instance.cell_object.disabled = False
         cls.randomize_mines()
+        cls.cell_count = CELL_COUNT
+        cls.mine_count = NUMBER_OF_MINES
 
     @classmethod
     def randomize_mines(cls):
@@ -69,9 +71,11 @@ class Cell(object):
             cell.cell_object.disabled = True
 
     def create_button(self, position):
-        btn = MDFlatButton(pos=position, on_press=self.open_cell,
-                           on_release=self.refresh_label, line_color=(.5, .5, .5, .5), font_size=dp(16))
-        self.cell_object = btn
+        self.cell_object = MDFlatButton(pos=position,
+                                        on_press=self.open_cell,
+                                        on_release=self.refresh_label,
+                                        line_color=(.5, .5, .5, .5),
+                                        font_size=dp(16))
 
     def open_cell(self, widget):
         main_screen = widget.parent.parent.parent

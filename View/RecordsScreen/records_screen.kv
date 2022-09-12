@@ -1,0 +1,51 @@
+#: import os os
+#: import get_hex_from_color kivy.utils.get_hex_from_color
+#: set primary get_hex_from_color(app.theme_cls.primary_color)
+
+
+<RecycleViewLabel@Label>
+    size_hint: None, None
+    size: self.texture_size
+    pos_hint: {"center_x": .5}
+    font_size: dp(20)
+
+
+<RecordsWidget>:
+    RecycleViewLabel:
+        text: root.primary_data
+
+
+<RecordsScreenView>
+    recycleView: recycleView
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(25)
+        spacing: dp(20)
+        Image:
+            source: f'{os.environ["MINESWEEPER"]}/assets/images/kivy-logo.png'
+            size_hint: None, .8
+            width: self.height
+            pos_hint: {'center_x': .5}
+
+        MDLabel:
+            markup: True
+            text: f'MineSweeper[color={primary}] Records[/color]'
+            font_size: dp(55)
+            halign: 'center'
+
+        RecycleView:
+            id: recycleView
+            viewclass: 'RecordsWidget'
+            RecycleBoxLayout:
+                padding: dp(10)
+                spacing: dp(15)
+                default_size: None, dp(20)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+
+        MDFlatButton:
+            text: 'Back'
+            font_size: dp(30)
+            on_press: app.manager_screen.switch_screen('login')
