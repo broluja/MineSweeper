@@ -1,3 +1,6 @@
+# General settings
+
+
 WIDTH = 1600
 HEIGHT = 800
 

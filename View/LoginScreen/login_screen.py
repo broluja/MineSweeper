@@ -6,8 +6,6 @@ from Model.user_manager import user_manager
 
 class LoginScreenView(MDScreen):
     """Login Screen"""
-    def __init__(self, **kwargs):
-        super(LoginScreenView, self).__init__(**kwargs)
 
     def login(self, name):
         if not name:

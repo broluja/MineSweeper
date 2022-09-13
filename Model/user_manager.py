@@ -23,7 +23,6 @@ class UserManager(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         if exc_type is None:
             self.commit()
-            print('Data stored.')
         else:
             self.commit()
             print(f'File closed but an exception appeared: {str(exc_type)}')
@@ -47,7 +46,6 @@ class UserManager(object):
     def get_or_create_player(self, name):
         if player := self.conn.execute('SELECT * FROM players where player=?;', (name,)).fetchone():
             player = self.get_model(player)
-            print(player)
             return player.player_name
         player = name
         games_played, games_won = 0, 0

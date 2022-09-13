@@ -13,12 +13,14 @@ class MainScreenView(MDScreen):
     table_created = False
 
     def on_enter(self, *args):
+        """Creating game table if not created. In other case just shuffle the mines positions."""
         if not self.table_created:
             self.create_table()
         else:
             self.shuffle_table()
 
     def shuffle_table(self):
+        """Shuffling mines positions."""
         Cell.shuffle_mines()
         self.ids.welcome.text = f"""
                 Welcome[color={get_hex_from_color(self.manager.app.theme_cls.primary_color)}]{self.manager.app.player}[/color]
