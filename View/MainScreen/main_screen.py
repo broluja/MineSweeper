@@ -27,7 +27,7 @@ class MainScreenView(MDScreen):
                             """
 
     def flag(self):
-        self.mine_flag = self.mine_flag == False
+        self.mine_flag = True
 
     def create_table(self):
         for x, y in itertools.product(range(GRID_SIZE), range(GRID_SIZE)):

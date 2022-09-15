@@ -81,6 +81,7 @@ class Cell(object):
         main_screen = widget.parent.parent.parent
         if main_screen.mine_flag:
             self.mark_mine(widget)
+            main_screen.mine_flag = False
         elif self.is_mine:
             widget.text = 'MINE'
             self.game_over(main_screen.manager.app)
