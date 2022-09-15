@@ -16,6 +16,3 @@ class LoginScreenView(MDScreen):
                 player = manager.get_or_create_player(name)
                 self.manager.app.player = player
                 self.manager.switch_screen('main')
-
-    def on_leave(self, *args):
-        self.ids.name_field.text = ''

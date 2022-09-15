@@ -8,8 +8,8 @@ from Controller.screens import screens
 
 
 class ManagerScreen(ScreenManager):
-    """ Class for screen manipulation, representing screen manager. """
-    _screens = []
+    """Class for screen manipulation, representing screen manager."""
+    _screens = list()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -17,7 +17,7 @@ class ManagerScreen(ScreenManager):
         self.transition = FadeTransition()
 
     def create_screen(self, name_screen: str, selected_list=None):
-        """ On demand creating screen. Returns Screen object. """
+        """On demand creating screen. Returns Screen object."""
         if name_screen not in self._screens:
             self._screens.append(name_screen)
             exec(f"import View.{screens[name_screen]}")
@@ -33,7 +33,7 @@ class ManagerScreen(ScreenManager):
             return view
 
     def switch_screen(self, screen_name: str, selected_list=None) -> None:
-        """ Switching screens. """
+        """Switching screens."""
         def switch_screen(*args):
             if screen_name not in self._screens:
                 screen = self.create_screen(screen_name, selected_list)

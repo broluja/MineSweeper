@@ -16,7 +16,7 @@ class UserManager(object):
         self.cursor.execute(self.INSTRUCTION)
         self.commit()
 
-    def __enter__(self):
+    def __enter__(self):  # Implementing context manager
         self.connect()
         return self
 
@@ -31,15 +31,20 @@ class UserManager(object):
     def __str__(self):
         return f'User Manager for {self.conn}'
 
+    def __repr__(self):
+        return f'{type(self).__name__}()'
+
     @staticmethod
     def get_model(player):
         return Player(player_name=player[0], games_played=player[1], games_won=player[2])
 
     def commit(self):
+        """Saving and committing into database."""
         self.conn.commit()
         self.conn.close()
 
     def connect(self):
+        """Connecting to database."""
         self.conn = sqlite3.connect('minesweeper.db')
         self.cursor = self.conn.cursor()
 
@@ -53,10 +58,12 @@ class UserManager(object):
         return player
 
     def get_records(self):
+        """Fetching players records."""
         self.cursor.execute('SELECT * FROM players')
         return self.cursor.fetchall()
 
     def record_win(self, name):
+        """Recording player`s win."""
         player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()
         player = self.get_model(player)
         games_played, games_won = player.games_played, player.games_won
@@ -67,13 +74,13 @@ class UserManager(object):
         return player
 
     def record_loss(self, name):
+        """Recording player`s loss."""
         player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()
         player = self.get_model(player)
-        game_played = player.games_played
-        game_played += 1
+        player.games_played += 1
         sql_command = 'UPDATE players SET games_played=? WHERE player=?;'
-        self.conn.execute(sql_command, (game_played, name))
-        return player.player_name, game_played
+        self.conn.execute(sql_command, (player.games_played, name))
+        return player.player_name
 
 
 user_manager = UserManager()

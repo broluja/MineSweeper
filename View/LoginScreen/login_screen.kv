@@ -3,6 +3,7 @@
 #: set primary get_hex_from_color(app.theme_cls.primary_color)
 
 <LoginScreenView>
+    on_leave: name_field.text = ''
     Image:
         source: f'{os.environ["MINESWEEPER"]}/assets/images/kivy-logo.png'
         size_hint: None, .2

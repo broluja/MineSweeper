@@ -64,6 +64,7 @@ class Cell(object):
             cell.is_mine = True
 
     def game_over(self, app):
+        """Called when you step on mine."""
         InfoManager().game_over_info()
         with user_manager as manager:
             manager.record_loss(app.player)
@@ -71,6 +72,7 @@ class Cell(object):
             cell.cell_object.disabled = True
 
     def create_button(self, position):
+        """Instantiate button object and assign it to instance.cell_object."""
         self.cell_object = MDFlatButton(pos=position,
                                         on_press=self.open_cell,
                                         on_release=self.refresh_label,
@@ -78,6 +80,7 @@ class Cell(object):
                                         font_size=dp(16))
 
     def open_cell(self, widget):
+        """Open cell object."""
         main_screen = widget.parent.parent.parent
         if main_screen.mine_flag:
             self.mark_mine(widget)
@@ -92,6 +95,7 @@ class Cell(object):
             self.show_cell()
 
     def refresh_label(self, widget):
+        """Refresh labels after opening cell."""
         main_screen = widget.parent.parent.parent
         cell_label = main_screen.ids.cell_counter
         cell_label.text = f'Cells left: {self.cell_count}'
@@ -108,6 +112,7 @@ class Cell(object):
                 return cell
 
     def show_cell(self):
+        """Show cell info."""
         if not self.is_open:
             Cell.cell_count -= 1
             if self.cell_object.text == '*':
@@ -117,6 +122,7 @@ class Cell(object):
         self.cell_object.disabled = True
 
     def mark_mine(self, widget):
+        """Called when you want to mark a cell as a mine."""
         if not self.cell_object.text:
             Cell.mine_count -= 1
             self.cell_object.text = '*'

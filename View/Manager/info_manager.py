@@ -5,10 +5,10 @@ from kivymd.app import MDApp
 
 
 class InfoManager(MDDialog):
-    """Information delivering manager (Pop-Up messages)"""
-    title = 'Info Manager'
+    """Information delivering manager (Pop-Up messages)."""
+    title = 'Info'
     type = 'custom'
-    _scroll_height = NumericProperty("120dp")
+    _scroll_height = NumericProperty("100dp")
     _spacer_top = NumericProperty("50dp")
 
     def __init__(self, **kwargs):
@@ -19,26 +19,31 @@ class InfoManager(MDDialog):
         ]
 
     def login_info(self):
+        """Information provided if player tries to log in without username."""
         self.text = 'Please, enter your name.'
         self.open()
 
     def game_over_info(self):
+        """Information on game over, triggered when player step on mine."""
         self.create_buttons()
         self.text = 'You stepped on mine. Game Over!'
         self.open()
 
     def win_info(self):
+        """Information on game win, triggered when player finishes game."""
         self.create_buttons()
         self.text = 'You won the game. Congratulations!'
         self.open()
 
     def exit(self, widget):
+        """Leaving MainScreen."""
         app = MDApp.get_running_app()
         manager = app.manager_screen
         manager.switch_screen('login')
         self.dismiss()
 
     def new_game(self, widget):
+        """Triggered when player starts new game."""
         app = MDApp.get_running_app()
         main_screen = app.manager_screen.get_screen('main')
         main_screen.shuffle_table()
