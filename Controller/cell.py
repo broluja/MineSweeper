@@ -10,7 +10,7 @@ from Model.user_manager import user_manager
 
 class Cell(object):
     """Cell class for creating base cell object containing mine, if decided by random function."""
-    _instances = []
+    _instances = list()
     cell_count = CELL_COUNT
     mine_count = NUMBER_OF_MINES
 
@@ -22,7 +22,7 @@ class Cell(object):
         Cell._instances.append(self)
 
     def __repr__(self):
-        return f'Cell({self.x}, {self.y})'
+        return f'{type(self).__name__}({self.x}, {self.y})'
 
     def __bool__(self):
         return self.is_mine
@@ -110,6 +110,8 @@ class Cell(object):
     def show_cell(self):
         if not self.is_open:
             Cell.cell_count -= 1
+            if self.cell_object.text == '*':
+                Cell.mine_count += 1
             self.cell_object.text = str(self.neighbour_mines)
         self.is_open = True
         self.cell_object.disabled = True
