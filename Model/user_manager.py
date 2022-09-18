@@ -7,7 +7,9 @@ home_location = os.environ['MINESWEEPER']
 
 
 class UserManager(object):
-    """Class for interaction with database table 'players'."""
+    """
+    Class for interaction with database table 'players'.
+    """
     INSTRUCTION = 'CREATE TABLE IF NOT EXISTS players(player TEXT UNIQUE, games_played INT, games_won INT)'
 
     def __init__(self):
@@ -39,16 +41,33 @@ class UserManager(object):
         return Player(player_name=player[0], games_played=player[1], games_won=player[2])
 
     def commit(self):
-        """Saving and committing into database."""
+        """
+        Saving and committing into database.
+        Returns:
+            None.
+        """
         self.conn.commit()
         self.conn.close()
 
     def connect(self):
-        """Connecting to database."""
+        """
+        Connecting to database.
+        Returns:
+            None.
+        """
         self.conn = sqlite3.connect('minesweeper.db')
         self.cursor = self.conn.cursor()
 
-    def get_or_create_player(self, name):
+    def get_or_create_player(self, name: str):
+        """
+        Getting player from the database with name == name if exists. If not exists,
+        creating player with that name.
+        Args:
+            name (str): String value representing player`s name.
+
+        Returns:
+            Returning player object.
+        """
         if player := self.conn.execute('SELECT * FROM players where player=?;', (name,)).fetchone():
             player = self.get_model(player)
             return player.player_name
@@ -58,12 +77,23 @@ class UserManager(object):
         return player
 
     def get_records(self):
-        """Fetching players records."""
+        """
+        Fetching players records.
+        Returns:
+            List of player objects.
+        """
         self.cursor.execute('SELECT * FROM players')
         return self.cursor.fetchall()
 
-    def record_win(self, name):
-        """Recording player`s win."""
+    def record_win(self, name: str):
+        """
+        Recording player`s win.
+        Args:
+            name (str): string value representing player`s name.
+
+        Returns:
+            Player`s object from database.
+        """
         player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()
         player = self.get_model(player)
         games_played, games_won = player.games_played, player.games_won
@@ -74,7 +104,14 @@ class UserManager(object):
         return player
 
     def record_loss(self, name):
-        """Recording player`s loss."""
+        """
+        Recording player`s loss.
+        Args:
+            name (str): string value representing player`s name.
+
+        Returns:
+            Player`s name.
+        """
         player = self.conn.execute('SELECT * FROM players WHERE player=?', (name, )).fetchone()
         player = self.get_model(player)
         player.games_played += 1

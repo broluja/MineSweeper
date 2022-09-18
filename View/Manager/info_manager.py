@@ -5,7 +5,9 @@ from kivymd.app import MDApp
 
 
 class InfoManager(MDDialog):
-    """Information delivering manager (Pop-Up messages)."""
+    """
+    Information delivering manager (Pop-Up messages).
+    """
     title = 'Info'
     type = 'custom'
     _scroll_height = NumericProperty("100dp")
@@ -19,31 +21,57 @@ class InfoManager(MDDialog):
         ]
 
     def login_info(self):
-        """Information provided if player tries to log in without username."""
+        """
+        Information provided if player tries to log in without username.
+        Returns:
+            None.
+        """
         self.text = 'Please, enter your name.'
         self.open()
 
     def game_over_info(self):
-        """Information on game over, triggered when player step on mine."""
+        """
+        Information on game over, triggered when player step on mine.
+        Returns:
+            None.
+        """
         self.create_buttons()
         self.text = 'You stepped on mine. Game Over!'
         self.open()
 
     def win_info(self):
-        """Information on game win, triggered when player finishes game."""
+        """
+        Information on game win, triggered when player finishes game.
+        Returns:
+            None.
+        """
         self.create_buttons()
         self.text = 'You won the game. Congratulations!'
         self.open()
 
     def exit(self, widget):
-        """Leaving MainScreen."""
+        """
+        Leaving MainScreen.
+        Args:
+            widget (MDFlatButton): Representing button that triggered this function.
+
+        Returns:
+            None.
+        """
         app = MDApp.get_running_app()
         manager = app.manager_screen
         manager.switch_screen('login')
         self.dismiss()
 
     def new_game(self, widget):
-        """Triggered when player starts new game."""
+        """
+        Triggered when player starts new game.
+        Args:
+            widget (MDFlatButton): Representing button that triggered this function.
+
+        Returns:
+            None.
+        """
         app = MDApp.get_running_app()
         main_screen = app.manager_screen.get_screen('main')
         main_screen.shuffle_table()

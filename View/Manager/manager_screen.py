@@ -8,7 +8,9 @@ from Controller.screens import screens
 
 
 class ManagerScreen(ScreenManager):
-    """Class for screen manipulation, representing screen manager."""
+    """
+    Class for screen manipulation, representing screen manager.
+    """
     _screens = list()
 
     def __init__(self, **kwargs):
@@ -16,8 +18,14 @@ class ManagerScreen(ScreenManager):
         self.app = MDApp.get_running_app()
         self.transition = FadeTransition()
 
-    def create_screen(self, name_screen: str, selected_list=None):
-        """On demand creating screen. Returns Screen object."""
+    def create_screen(self, name_screen: str):
+        """
+        On demand creating screen. Returns Screen object.
+        Args:
+            name_screen (str): String value representing screen name.
+        Returns:
+            Screen object.
+        """
         if name_screen not in self._screens:
             self._screens.append(name_screen)
             exec(f"import View.{screens[name_screen]}")
@@ -28,15 +36,19 @@ class ManagerScreen(ScreenManager):
                 f'View.{screens[name_screen]}.{screens[name_screen].split(".")[0]}View()'
             )
             view.name = name_screen
-            if selected_list:
-                view.selected_list = selected_list
             return view
 
-    def switch_screen(self, screen_name: str, selected_list=None) -> None:
-        """Switching screens."""
+    def switch_screen(self, screen_name: str) -> None:
+        """
+        Switching screens.
+        Args:
+            screen_name (str): String value representing screen name.
+        Returns:
+            None.
+        """
         def switch_screen(*args):
             if screen_name not in self._screens:
-                screen = self.create_screen(screen_name, selected_list)
+                screen = self.create_screen(screen_name)
                 self.add_screen(screen)
             self.current = screen_name
 
@@ -44,7 +56,13 @@ class ManagerScreen(ScreenManager):
             Clock.schedule_once(switch_screen)
         else:
             self.current = screen_name
-            self.current_screen.selected_list = selected_list
 
-    def add_screen(self, screen: str):
+    def add_screen(self, screen: str) -> None:
+        """
+        Adding screen to the pool.
+        Args:
+            screen (str): String value representing screen name.
+        Returns:
+            None.
+        """
         self.add_widget(screen)

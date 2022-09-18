@@ -5,9 +5,21 @@ from Model.user_manager import user_manager
 
 
 class LoginScreenView(MDScreen):
-    """Login Screen"""
+    """
+    Screen used for logging in game.
+    """
 
-    def login(self, name):
+    def login(self, name: str):
+        """
+        Logging in using user`s name. If name do not exist in database,
+        creating user with that name.
+
+        Args:
+            name (str): String value representing player`s name.
+
+        Returns:
+            None.
+        """
         if not name:
             info_manager = InfoManager()
             info_manager.login_info()

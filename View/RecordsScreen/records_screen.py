@@ -6,7 +6,9 @@ from Model.user_manager import UserManager
 
 
 class RecordsScreenView(MDScreen):
-    """Screen for displaying player`s records."""
+    """
+    Screen for displaying player`s records.
+    """
 
     def __init__(self, **kwargs):
         super(RecordsScreenView, self).__init__(**kwargs)
@@ -14,6 +16,14 @@ class RecordsScreenView(MDScreen):
         self.data = None
 
     def on_enter(self, *args):
+        """
+        Function triggered on entering the Screen.
+        Args:
+            *args:
+
+        Returns:
+            None.
+        """
         if not self.data:
             with self.user_manager as manager:
                 data = manager.get_records()
