@@ -1,7 +1,15 @@
 from kivymd.uix.screen import MDScreen
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
+from kivy.metrics import dp
+from kivy.properties import ObjectProperty
 
 from View.Manager.info_manager import InfoManager
 from Model.user_manager import user_manager
+
+
+class Content(MDBoxLayout):
+    spacing = dp(5)
 
 
 class LoginScreenView(MDScreen):

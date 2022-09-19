@@ -29,6 +29,8 @@ class MainScreenView(MDScreen):
             self.create_table()
         else:
             self.shuffle_table()
+        self.ids.cell_counter.text = f'Cells left: {Cell.cell_count}'
+        self.ids.mine_counter.text = f'Mines left: {Cell.mine_count}'
 
     def shuffle_table(self):
         """

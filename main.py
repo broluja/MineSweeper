@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from kivy.properties import StringProperty
+
 from Controller import settings
 from kivy.config import Config
 
@@ -16,6 +18,8 @@ os.environ['MINESWEEPER'] = str(Path(__file__).parent)
 
 class MinesweeperApp(MDApp):
     """MineSweeper Game"""
+    level = StringProperty('EASY')
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.theme_cls.theme_style = 'Dark'
@@ -28,4 +32,3 @@ class MinesweeperApp(MDApp):
 
 
 MinesweeperApp().run()
-# TODO: Implement game levels
