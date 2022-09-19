@@ -8,9 +8,7 @@ from Controller.cell import Cell
 
 
 class MainScreenView(MDScreen):
-    """
-    Main Game Screen
-    """
+    """Main Game Screen"""
     mine_flag = False
     table_created = False
 
@@ -20,7 +18,7 @@ class MainScreenView(MDScreen):
         In other case just shuffle the mines positions.
 
         Args:
-            *args:
+            *args: optional arguments
 
         Returns:
             None.

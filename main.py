@@ -19,6 +19,7 @@ os.environ['MINESWEEPER'] = str(Path(__file__).parent)
 class MinesweeperApp(MDApp):
     """MineSweeper Game"""
     level = StringProperty('EASY')
+    player = StringProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
