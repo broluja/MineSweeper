@@ -1,6 +1,6 @@
 from kivy.properties import NumericProperty
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDRectangleFlatButton
 from kivymd.app import MDApp
 
 
@@ -16,8 +16,22 @@ class InfoManager(MDDialog):
     def __init__(self, **kwargs):
         super(InfoManager, self).__init__(**kwargs)
         self.buttons = [
-            MDFlatButton(text='New Game', font_size='25dp', on_press=self.new_game),
-            MDFlatButton(text='Exit', on_press=self.exit, font_size='25dp')
+            MDRectangleFlatButton(text='New Game',
+                                  font_size='22dp',
+                                  on_press=self.new_game,
+                                  pos_hint={'y': .8},
+                                  theme_text_color='Custom',
+                                  text_color='white',
+                                  line_color='green'
+                                  ),
+            MDRectangleFlatButton(text='Exit',
+                                  on_press=self.exit,
+                                  font_size='22dp',
+                                  pos_hint={'y': .8},
+                                  theme_text_color='Custom',
+                                  text_color='white',
+                                  line_color='red'
+                                  )
         ]
 
     def login_info(self):
@@ -53,7 +67,7 @@ class InfoManager(MDDialog):
         """
         Leaving MainScreen.
         Args:
-            widget (MDFlatButton): Representing button that triggered this function.
+            widget (MDRectangleFlatButton): Representing button that triggered this function.
 
         Returns:
             None.
@@ -67,7 +81,7 @@ class InfoManager(MDDialog):
         """
         Triggered when player starts new game.
         Args:
-            widget (MDFlatButton): Representing button that triggered this function.
+            widget (MDRectangleFlatButton): Representing button that triggered this function.
 
         Returns:
             None.
