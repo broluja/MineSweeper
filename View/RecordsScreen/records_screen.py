@@ -6,9 +6,7 @@ from Model.user_manager import UserManager
 
 
 class RecordsScreenView(MDScreen):
-    """
-    Screen for displaying player`s records.
-    """
+    """Screen for displaying player`s records."""
 
     def __init__(self, **kwargs):
         super(RecordsScreenView, self).__init__(**kwargs)
